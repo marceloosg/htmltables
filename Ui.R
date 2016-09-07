@@ -39,6 +39,7 @@ shinyUI(fluidPage(
                         textInput("url","Url:",value=url3),
                         actionButton("goButton", "Get Tables"),
                         actionButton("filtButton", "Apply Filter"),
+                        actionButton("helpButton", "Help"),
                         selectInput("columns", "Column which to Apply Filter:", 
                                     choices = c()),
                         textInput("optfilter", "Type the filter text to Apply: "),
@@ -57,9 +58,10 @@ shinyUI(fluidPage(
                 mainPanel(
 #                        plotOutput("distPlot"),
                         h1(textOutput("title")),
-                        p("Extracted Table:"),
-                        dataTableOutput("dircontents")
- 
+                        dataTableOutput("dircontents"),
+                        htmlOutput('frame')
+                        
+
                         
                 )
         )

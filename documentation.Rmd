@@ -3,13 +3,8 @@ title       : Web DataTable
 subtitle    : Html table extractor for data analysis
 author      : Marcelo Guimarães
 job         : Data Scientist
-framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
-highlighter : highlight.js  # {highlight.js, prettify, highlight}
-hitheme     : tomorrow      #
-widgets     : []            # {mathjax, quiz, bootstrap}
-mode        : selfcontained # {standalone, draft}
-knit        : slidify::knit2slides
-
+date: "September 3, 2016"
+output: html_document
 ---
 
 #Basic Documentation:
@@ -25,7 +20,7 @@ Control|Description
 # Web Application example:
 
 Bellow is an application example for the https://www.cpubenchmark.net/cpu_list.php webpage:
-<!--/html_preserve-->
+
 <style>
 .scrollable{
 width: 850px !important;
@@ -36,7 +31,7 @@ margin-left: 8%;
 <div class="scrollable" style="overflow: auto">
 <img src="loaded.png"></img>
 </div>
-<!--/html_preserve-->
+
 
  1. The selected url is  https://www.cpubenchmark.net/cpu_list.php.
  2. The "Get Table" extracts **all** tables with headers from the page. The table is displayed on the right.

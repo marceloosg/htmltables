@@ -12,6 +12,7 @@ shinyServer(function(input, output,session) {
 
         observeEvent(input$goButton,{
                 
+                output$frame <- renderUI({})
                 html=get_db_from_web(isolate(input$url))
                 html.title=html[[1]]
                 html.db=html[[2]]
@@ -25,6 +26,7 @@ shinyServer(function(input, output,session) {
             
                 observeEvent(input$filtButton,{
                         if(input$goButton > 0){
+                                output$frame <- renderUI({})
                                 html=get_db_from_web(isolate(input$url))
                                 html.title=html[[1]]
                                 html.db=html[[2]]
@@ -61,5 +63,14 @@ shinyServer(function(input, output,session) {
                                 
                         }
                 })
+                output$dir=renderText(dir())
+                observeEvent(input$helpButton,{
+                        output$dircontents=renderDataTable(data.frame())
+                        output$title=renderText("Documentation")
+                        output$frame <- renderUI({
+                                
+                                includeMarkdown("include.md")
+                        })
+                        })
         
 })
