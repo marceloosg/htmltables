@@ -1,5 +1,4 @@
 library(shiny)
-ok="Choose a columns:"
 url3="https://www.cpubenchmark.net/cpu_list.php"
 # Define UI for application that draws a histogram
 code= HTML('<script type="text/javascript">
@@ -11,7 +10,7 @@ code= HTML('<script type="text/javascript">
       </script>
 ')
 
-foption=list("mean","sum","summary")
+foption=list("mean","sum")
 
 shinyUI(fluidPage(
         
@@ -36,16 +35,16 @@ shinyUI(fluidPage(
                z-index: 105;
              }
           ")),
-                        selectInput("fcolumns", "Column which to Apply Function:", 
-                                    choices = c()),
-                        selectInput("optfunction", "Function to Apply:", 
-                                    choices = foption),
-                        selectInput("columns", "Column which to Apply Filter:", 
-                                    choices = c()),
-                        textInput("optfilter", "Type the filter text to Apply: "),
+                       
                         textInput("url","Url:",value=url3),
                         actionButton("goButton", "Get Tables"),
                         actionButton("filtButton", "Apply Filter"),
+                        selectInput("columns", "Column which to Apply Filter:", 
+                                    choices = c()),
+                        textInput("optfilter", "Type the filter text to Apply: "),
+			selectInput("fcolumns", "Column which to Apply Function:",choices = c()),
+                        selectInput("optfunction", "Function to Apply:", 
+                                    choices = foption),
                         conditionalPanel(condition="$('html').hasClass('shiny-busy')",
                                          tags$div("Loading...",id="loadmessage")),
                         h3(textOutput("lresults")),

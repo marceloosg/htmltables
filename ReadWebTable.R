@@ -2,6 +2,7 @@ library(XML)
 library(rvest)
 library(stringr)
 library(dplyr)
+library(digest)
 .cached_tables=list()
 .cached_titles=list()
 
@@ -37,7 +38,8 @@ get_db_from_web=function(url){
                 db=.cached_tables[[url]]
         }
         else{
-                filename=paste0("tables/",digest(url))
+		if(!file.exists("tables-cache")) dir.create("tables-cache")
+                filename=paste0("tables-cache/",digest(url))
                 if(!file.exists(filename)){
                         download.file(url, filename)
                 }

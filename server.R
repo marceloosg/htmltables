@@ -1,5 +1,6 @@
 library(shiny)
 library(data.table)
+library(digest)
 url="http://www.dnr.state.mn.us/lakefind/showreport.html?downum=27013300"
 url2="http://www.ssp.sp.gov.br/novaestatistica/Pesquisa.aspx"
 url3="https://www.cpubenchmark.net/cpu_list.php"
@@ -28,28 +29,32 @@ shinyServer(function(input, output,session) {
                                 html.title=html[[1]]
                                 html.db=html[[2]]
                                 if(input$optfilter != ""){
-                                        filter=grep(input$optfilter,html.db[[input$columns]])
+                                        filter=grep(input$optfilter,html.db[[input$columns]],ignore.case=T)
                                         rdb=html.db[filter,]
                                 }else{
                                         rdb=html.db[,]
                                 }
-                                
-                                result=foption[[input$optfunction]](
-                                        as.numeric(as.character(rdb[[input$fcolumns]])),na.rm=T)
+				colvalue=as.character(rdb[[input$fcolumns]])
+				colvalue=gsub("\\@|\\$","",colvalue)
+				colvalue=as.numeric(colvalue)
+				nas=sum(is.na(colvalue))
+				valid=sum(!is.na(colvalue))
+				colvalue=colvalue[!is.na(colvalue)]
+				selected_function=foption[[input$optfunction]]
+                                result=as.integer(100*selected_function(colvalue))/100
                                 fname=input$fcolumns
                                 output$lresults=renderText(fname)
                                 output$Results = renderText({
-                                        if(length(result)>0){
-                                        paste(input$optfunction,result,sep=":")}
+                                        if(length(colvalue)>0){
+                                        paste(input$optfunction,result,
+					"NAs",nas,"Values",valid,sep=":")}
                                         else{return("Not enought Data:(check selected column) ")}
                                         })
-                                col=as.numeric(as.character(rdb[[input$fcolumns]]))
-                                col=col[!is.na(col)]
                                 output$bplot=renderPlot({
-                                        if(is.null(col)){
+                                        if(length(colvalue) < 3){
                                                 return(NULL)      
                                         } 
-                                        boxplot(col)
+                                        boxplot(colvalue)
                                 }
                                         
                                 )
