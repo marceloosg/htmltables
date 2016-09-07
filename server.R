@@ -4,7 +4,7 @@ library(digest)
 url="http://www.dnr.state.mn.us/lakefind/showreport.html?downum=27013300"
 url2="http://www.ssp.sp.gov.br/novaestatistica/Pesquisa.aspx"
 url3="https://www.cpubenchmark.net/cpu_list.php"
-source("readtable.R")
+source("ReadWebTable.R")
 # Define server logic required to draw a histogram
 lastgo=0
 foption=list("mean"=mean,"sum"=sum)
