@@ -11,8 +11,13 @@ This project is part of an assignment for the Data Products Coursera Course.
 ## Contents
 
 UI.R :	User Interface file
+
 server.R: Server file
+
 README.md: This file
+
 documentation.Rmd: Basic documentation on how to use this application.
+
 documentation.html: same documentation as a html file.
+
 tables: Cached html 
